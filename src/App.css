@@ -1,0 +1,136 @@
+/* Global Styles */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Styles */
+.header {
+  height: 150px;
+  width: 100%;
+  background-color: #007bff;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+.header .btn {
+  margin-top: 15px;
+}
+
+/* Task Container Styles */
+.task-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f6f7f8;
+}
+
+/* Card Styles */
+.card-wrapper {
+  width: 300px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.card-top {
+  width: 100%;
+  height: 10px;
+  background-color: #5d93e1; /* Default color */
+}
+
+.task-holder {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ecf3fc; /* Default secondary color */
+  text-align: center;
+}
+
+.task-holder p {
+  flex: 1;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.task-holder .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.task-holder .actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1em;
+  transition: color 0.2s;
+}
+
+.task-holder .actions button:hover {
+  color: #0056b3;
+}
+
+/* Button Styles */
+.btn {
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: 2px solid #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
