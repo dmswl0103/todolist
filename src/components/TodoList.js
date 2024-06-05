@@ -16,27 +16,31 @@ const TodoList = () => {
     }, []);
 
     // 할 일 체크 처리 함수
-    const handleTaskCompletion = (updatedTask, index) => {
+    const handleTaskCompletion = (updatedTask, index, allCompleted) => {
         const updatedTaskList = [...taskList];
-        updatedTaskList[index] = updatedTask;
+
+        if (allCompleted) {
+            updatedTaskList.splice(index, 1);
+        } else {
+            updatedTaskList[index] = updatedTask;
+        }
+
         localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
         setTaskList(updatedTaskList);
     };
 
     const deleteTask = (index) => {
-        let tempList = taskList;
+        let tempList = [...taskList];
         tempList.splice(index, 1);
         localStorage.setItem("taskList", JSON.stringify(tempList));
         setTaskList(tempList);
-        window.location.reload();
     };
 
     const updateListArray = (obj, index) => {
-        let tempList = taskList;
+        let tempList = [...taskList];
         tempList[index] = obj;
         localStorage.setItem("taskList", JSON.stringify(tempList));
         setTaskList(tempList);
-        window.location.reload();
     };
 
     const toggle = () => {
@@ -44,7 +48,7 @@ const TodoList = () => {
     };
 
     const saveTask = (taskObj) => {
-        let tempList = taskList;
+        let tempList = [...taskList];
         tempList.push(taskObj);
         localStorage.setItem("taskList", JSON.stringify(tempList));
         setTaskList(tempList);
@@ -74,7 +78,7 @@ const TodoList = () => {
                         deleteTask={deleteTask}
                         updateListArray={updateListArray}
                         getColorIndex={getColorIndex}
-                        handleTaskCompletion={handleTaskCompletion} // 추가: 할 일 완료 처리 함수 전달
+                        handleTaskCompletion={handleTaskCompletion}
                     />
                 ))}
             </div>
@@ -82,6 +86,5 @@ const TodoList = () => {
         </>
     );
 };
-
 
 export default TodoList;

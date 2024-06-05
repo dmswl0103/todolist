@@ -10,7 +10,11 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
         setTaskName(taskObj.Name || '');
         setDescription(taskObj.Description || '');
         if (taskObj.Description) {
-            setDescriptionList(taskObj.Description.split('\n').map((desc, index) => ({ id: index, text: desc, checked: false }))); // id 추가
+            setDescriptionList(taskObj.Description.split('\n').map((desc, index) => ({
+                id: index,
+                text: desc,
+                checked: taskObj.Subtasks[index].completed
+            })));
         } else {
             setDescriptionList([]);
         }
@@ -22,13 +26,17 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
             setTaskName(value);
         } else {
             setDescription(value);
-            setDescriptionList(value.split('\n').map((desc, index) => ({ id: index, text: desc, checked: false }))); // id 추가
+            setDescriptionList(value.split('\n').map((desc, index) => ({
+                id: index,
+                text: desc,
+                checked: false
+            })));
         }
     };
 
-    const handleCheckboxChange = (id) => { // id 매개변수로 변경
+    const handleCheckboxChange = (id) => {
         const newDescriptionList = [...descriptionList];
-        const index = newDescriptionList.findIndex(desc => desc.id === id); // 해당 id를 가진 요소의 인덱스 찾기
+        const index = newDescriptionList.findIndex(desc => desc.id === id);
         if (index !== -1) {
             newDescriptionList[index].checked = !newDescriptionList[index].checked;
             setDescriptionList(newDescriptionList);
@@ -38,9 +46,14 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
     const handleUpdate = (e) => {
         e.preventDefault();
         const updatedDescription = descriptionList.map(desc => desc.text).join('\n');
-        let tempObj = {};
-        tempObj['Name'] = taskName;
-        tempObj['Description'] = updatedDescription;
+        const tempObj = {
+            Name: taskName,
+            Description: updatedDescription,
+            Subtasks: descriptionList.map(desc => ({
+                description: desc.text,
+                completed: desc.checked
+            }))
+        };
         updateTask(tempObj);
     };
 
@@ -75,15 +88,16 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
                     </div>
                     {descriptionList.map((desc) => (
                         <FormControlLabel
-                            key={desc.id} // key로 id 사용
+                            key={desc.id}
                             control={
                                 <Checkbox
                                     checked={desc.checked}
-                                    onChange={() => handleCheckboxChange(desc.id)} // id 전달
+                                    onChange={() => handleCheckboxChange(desc.id)}
                                     color="primary"
                                 />
                             }
                             label={desc.text}
+                            style={{ textDecoration: desc.checked ? 'line-through' : 'none' }}
                         />
                     ))}
                 </DialogContentText>
@@ -97,3 +111,4 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
 };
 
 export default EditTaskPopup;
+
